@@ -7,16 +7,17 @@ import (
 
 func main() {
 	fmt.Println("---> Play With Time <---")
+	// location, _ := time.LoadLocation("Asia/Kolkata")
 	// timeLayout := "2022-01-01 15:04:05"
-	currentTime := time.Now()
-	fmt.Println("Current Time :", currentTime)
 
-	timer := "18:00"
+	now := time.Now()
+	fmt.Println("Current Time :", now)
+	timer := "23:12"
+	parseTime, _ := time.Parse("15:04", timer)
 
-	fmt.Println("Timer :", timer)
+	scheduleTime := time.Date(now.Year(), now.Month(), now.Day(), parseTime.Hour(), parseTime.Minute(), 0, 0, time.Local)
+	fmt.Println("Schedule Time :=", scheduleTime)
 
-	fmt.Println("In String Format :=", currentTime.String())
-
-	// fmt.Println("Scheduled Time :=", scheduledTime)
-
+	sss := scheduleTime.Add(time.Hour * 4)
+	fmt.Println("sss :=", sss)
 }
