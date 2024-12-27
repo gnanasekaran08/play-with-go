@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -13,6 +14,7 @@ func main() {
 	fmt.Println("---> GO -- X")
 
 	fruits := []string{"apple", "banana", "cherry", "blueberry"}
+	fmt.Println("Find the fruit: ", slices.Contains(fruits, "cherry"))
 
 	for fruit_index := 0; fruit_index < len(fruits); fruit_index++ {
 		println("Fruit: ", fruits[fruit_index])
