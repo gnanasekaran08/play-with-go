@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
-	fmt.Println("---> GO <---")
+	fmt.Println("---> Play With Go <---")
+
 }
