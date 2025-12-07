@@ -9,7 +9,7 @@ import (
 
 var db *sql.DB
 
-func Connect() {
+func Connect() *sql.DB {
 	fmt.Println("Connecting to the database...")
 	config := mysql.NewConfig()
 	config.User = "root"
@@ -21,14 +21,15 @@ func Connect() {
 	db, err := sql.Open("mysql", config.FormatDSN())
 	if err != nil {
 		fmt.Println("Error connecting to the database:", err)
-		return
+		return nil
 	}
 
 	err = db.Ping()
 	if err != nil {
 		fmt.Println("Database ping failed:", err)
-		return
+		return nil
 	}
 
 	fmt.Println("Database connection established successfully!")
+	return db
 }
