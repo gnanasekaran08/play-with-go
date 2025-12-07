@@ -1,3 +1,3 @@
-module github.com/gnanasekaran08/play-with-go
+module play-go
 
-go 1.22.6
+go 1.25.5
