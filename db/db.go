@@ -33,3 +33,14 @@ func Connect() *sql.DB {
 	fmt.Println("Database connection established successfully!")
 	return db
 }
+
+func Close() {
+	if db != nil {
+		err := db.Close()
+		if err != nil {
+			fmt.Println("Error closing the database connection:", err)
+		} else {
+			fmt.Println("Database connection closed successfully.")
+		}
+	}
+}
