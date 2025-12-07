@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	fmt.Println("---> GO -- X")
+	fmt.Println("---> GO <---")
 }
