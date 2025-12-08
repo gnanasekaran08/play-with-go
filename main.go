@@ -6,8 +6,11 @@ import (
 	"time"
 )
 
+var x, y int = 10, 20
+
 func main() {
 	fmt.Println("---> Play With Go <---")
+	fmt.Printf("x: %d, y: %d\n", x, y)
 	_db := db.Connect()
 	if _db != nil {
 		defer _db.Close()
@@ -33,4 +36,17 @@ func main() {
 	fmt.Println("Total Feedbacks Count Query Executed:", entries_count)
 	elapsed := time.Since(start)
 	fmt.Printf("Feedbacks count query took %s\n", elapsed)
+
+	roster_start := time.Now()
+	var rosters_count int
+	err = _db.QueryRow("select count(id) as rosters_count from rosters where id > 0").Scan(&rosters_count)
+	if err != nil {
+		fmt.Println("Error executing query:", err)
+		return
+	}
+	fmt.Println("Total Rosters Count Query Executed:", rosters_count)
+	roster_elapsed := time.Since(roster_start)
+	fmt.Printf("Rosters count query took %s\n", roster_elapsed)
+
+	db.Close()
 }
