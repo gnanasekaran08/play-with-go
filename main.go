@@ -25,7 +25,7 @@ func main() {
 	// measure feedbacks count query
 	start := time.Now()
 	var entries_count int
-	err = _db.QueryRow("select count(id) from feedbacks").Scan(&entries_count)
+	err = _db.QueryRow("select count(id) as entries_count from feedbacks where id > 0").Scan(&entries_count)
 	if err != nil {
 		fmt.Println("Error executing query:", err)
 		return
