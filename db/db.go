@@ -11,12 +11,22 @@ var db *sql.DB
 
 func Connect() *sql.DB {
 	fmt.Println("Connecting to the database...")
-	config := mysql.NewConfig()
-	config.User = "root"
-	config.Passwd = ""
-	config.Net = "tcp"
-	config.Addr = "127.0.0.1:3306"
-	config.DBName = "reallist_one"
+	// config := mysql.NewConfig()
+	// config.User = "root"
+	// config.Passwd = ""
+	// config.Net = "tcp"
+	// config.Addr = "127.0.0.1:3306"
+	// config.DBName = "reallist_one"
+
+	config := mysql.Config{
+		User:                 "root",
+		Passwd:               "",
+		Net:                  "tcp",
+		Addr:                 "127.0.0.1:3306",
+		DBName:               "reallist_one",
+		ParseTime:            true,
+		AllowNativePasswords: true,
+	}
 
 	db, err := sql.Open("mysql", config.FormatDSN())
 	if err != nil {

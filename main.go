@@ -1,11 +1,15 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os/exec"
 	"play-go/db"
+	"play-go/sqlc"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var x, y int = 10, 20
@@ -13,7 +17,9 @@ var x, y int = 10, 20
 func main() {
 	fmt.Println("---> Play With Go <---")
 	fmt.Printf("x: %d, y: %d\n", x, y)
+	ctx := context.Background()
 
+	fmt.Println("Context:", ctx)
 	cmd := exec.Command("bash", "-c", "echo 'Hello from Bash executed by Go!'")
 	output, err := cmd.CombinedOutput()
 	if err != nil {
@@ -24,6 +30,33 @@ func main() {
 	_db := db.Connect()
 	if _db != nil {
 		defer _db.Close()
+	}
+
+	queries := sqlc.New(_db)
+
+	customers, err := queries.GetCustomers(ctx)
+	if err != nil {
+		fmt.Println("Error fetching customer:", err)
+	}
+
+	entriesCount, err := queries.GetEntriesCount(ctx)
+	if err != nil {
+		fmt.Println("Error fetching entries count:", err)
+	}
+
+	fmt.Println("Entries Count:", entriesCount)
+
+	fmt.Println("Customers:", customers)
+
+	entries, err := queries.GetEntries(ctx)
+	if err != nil {
+		fmt.Println("Error fetching entries:", err)
+	}
+
+	fmt.Println("Entries:", entries)
+
+	for _, entry := range entries {
+		fmt.Println("Entry ID: %d, OrgID: %d, FeedbackID: %d\n", entry.ID, entry.OrgID, entry.FeedbackID)
 	}
 
 	fmt.Println("Main function execution completed.")

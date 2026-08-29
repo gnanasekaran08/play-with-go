@@ -1,0 +1,14 @@
+version: "2"
+sql:
+  - engine: "mysql"
+    schema: "schema.sql"
+    queries: "queries.sql"
+    gen:
+      go:
+        package: "sqlc"
+        out: "sqlc"
+        overrides:
+          - column: "customers._meta"
+            go_type:
+              import: "github.com/sqlc-dev/pqtype"
+              type: "NullRawMessage"
